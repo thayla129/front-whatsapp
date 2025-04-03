@@ -2,6 +2,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const listaConversas = document.getElementById('conversationList')
     const areaMensagens = document.getElementById('messages')
     const cabecalhoChat = document.getElementById('currentChat')
+    const searchInput = document.getElementById('searchInput')
+    let contatosCarregados = []
     
     function criarElemento(tipo, classe = '') {
         const elemento = document.createElement(tipo)
@@ -23,7 +25,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 throw new Error('Formato de dados inválido')
             }
             
-            exibirContatos(dados.dados_contato)
+            contatosCarregados = dados.dados_contato
+            exibirContatos(contatosCarregados)
         } catch (erro) {
            return false
         }
@@ -59,6 +62,25 @@ document.addEventListener('DOMContentLoaded', function() {
             listaConversas.appendChild(itemContato)
         })
     }
+    
+    // Função para filtrar contatos - CORRIGIDA
+    function filtrarContatos(termo) {
+        if (!termo) {
+            exibirContatos(contatosCarregados)
+            return
+        }
+        
+        const termoLower = termo.toLowerCase()
+        const contatosFiltrados = contatosCarregados.filter(contato => 
+            contato.name.toLowerCase().includes(termoLower))
+        
+        exibirContatos(contatosFiltrados)
+    }
+    
+    // Event listener para a barra de pesquisa
+    searchInput.addEventListener('input', (e) => {
+        filtrarContatos(e.target.value)
+    })
     
     async function selecionarContato(contato) {
         try {

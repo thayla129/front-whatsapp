@@ -221,8 +221,68 @@ body {
     background: #555;
 }
 
+.search-bar {
+    padding: 10px 15px;
+    background-color: #111b21;
+    border-bottom: 1px solid #303d45;
+}
+
+.search-bar input {
+    width: 100%;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    background-color: #2a3942;
+    color: #e9edef;
+}
+
+.search-bar input::placeholder {
+    color: #8696a0;
+}
+
+.conversation-item {
+    transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+.conversation-item:hover {
+    transform: translateX(5px);
+}
+
+.message {
+    animation: fadeInUp 0.3s ease-out;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
 /* Animações */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
 }
+
+
+.conversation-item:hover {
+    position: relative;
+    z-index: 1;
+}
+
+.conversation-item:hover::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at center, 
+                rgba(255,255,255,0.1) 0%, 
+                transparent 70%);
+    z-index: -1;
+}
+
+
+
